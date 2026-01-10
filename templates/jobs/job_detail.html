@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ job.title }}{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <div class="bg-white rounded-lg shadow-lg p-8">
+        <div class="mb-6">
+            <h1 class="text-3xl font-bold text-gray-900">{{ job.title }}</h1>
+            <div class="flex items-center mt-2 text-gray-600">
+                <span class="mr-4">{{ job.company }}</span>
+                <span class="mr-4">•</span>
+                <span>{{ job.location }}</span>
+            </div>
+        </div>
+        
+        <div class="mb-8">
+            <div class="flex space-x-4 mb-6">
+                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">
+                    {{ job.get_job_type_display }}
+                </span>
+                {% if job.salary %}
+                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full">
+                    Salary: {{ job.salary }}
+                </span>
+                {% endif %}
+            </div>
+            
+            <div class="prose max-w-none">
+                <h3 class="text-xl font-bold mt-6 mb-2">Job Description</h3>
+                <p class="text-gray-700 whitespace-pre-line">{{ job.description }}</p>
+                
+                <h3 class="text-xl font-bold mt-6 mb-2">Requirements</h3>
+                <p class="text-gray-700 whitespace-pre-line">{{ job.requirements }}</p>
+            </div>
+        </div>
+        
+        <div class="border-t pt-6">
+            {% if user.is_authenticated %}
+                {% if has_applied %}
+                    <div class="bg-yellow-100 border-l-4 border-yellow-500 p-4 mb-4">
+                        <p class="text-yellow-700">✓ You have already applied for this position</p>
+                    </div>
+                {% else %}
+                    <a href="{% url 'apply_job' job.id %}" 
+                       class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 font-medium">
+                        Apply Now
+                    </a>
+                {% endif %}
+            {% else %}
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <p class="text-blue-800 mb-2">Please login to apply for this job</p>
+                    <a href="{% url 'login' %}?next={% url 'job_detail' job.id %}" 
+                       class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                        Login to Apply
+                    </a>
+                    <a href="{% url 'register' %}" 
+                       class="ml-2 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                        Register
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

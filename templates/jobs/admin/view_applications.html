@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}Applications for {{ job.title }}{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto">
+    <div class="mb-6">
+        <h1 class="text-3xl font-bold text-gray-900">Applications for: {{ job.title }}</h1>
+        <p class="text-gray-600 mt-2">{{ job.company }} • {{ job.location }}</p>
+    </div>
+    
+    {% if applications %}
+    <div class="bg-white rounded-lg shadow">
+        <div class="p-6 border-b">
+            <h2 class="text-2xl font-bold text-gray-800">{{ applications.count }} Application(s)</h2>
+        </div>
+        
+        <div class="divide-y">
+            {% for application in applications %}
+            <div class="p-6 hover:bg-gray-50">
+                <div class="flex justify-between items-start">
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-gray-900">{{ application.applicant.get_full_name }}</h3>
+                        <p class="text-gray-600">{{ application.applicant.email }}</p>
+                        
+                        <div class="mt-4">
+                            <h4 class="font-bold text-gray-700">Cover Letter:</h4>
+                            <p class="text-gray-700 mt-2">{{ application.cover_letter|linebreaks }}</p>
+                        </div>
+                        
+                        <div class="mt-4 flex items-center space-x-4">
+                            <span class="px-3 py-1 rounded-full text-sm font-medium 
+                                {% if application.status == 'pending' %}bg-yellow-100 text-yellow-800
+                                {% elif application.status == 'accepted' %}bg-green-100 text-green-800
+                                {% elif application.status == 'rejected' %}bg-red-100 text-red-800
+                                {% else %}bg-blue-100 text-blue-800{% endif %}">
+                                {{ application.get_status_display }}
+                            </span>
+                            <span class="text-gray-500 text-sm">
+                                Applied {{ application.applied_at|date:"M d, Y H:i" }}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="ml-6 flex flex-col space-y-2">
+                        {% if application.resume %}
+                        <a href="{{ application.resume.url }}" target="_blank" 
+                           class="bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700 text-center">
+                            View Resume
+                        </a>
+                        {% endif %}
+                        
+                        <form method="post" action="{% url 'admin:jobs_jobapplication_change' application.id %}">
+                            {% csrf %}
+                            <select name="status" onchange="this.form.submit()" 
+                                    class="bg-gray-100 border rounded px-3 py-1 text-sm">
+                                <option value="pending" {% if application.status == 'pending' %}selected{% endif %}>Pending</option>
+                                <option value="reviewed" {% if application.status == 'reviewed' %}selected{% endif %}>Reviewed</option>
+                                <option value="accepted" {% if application.status == 'accepted' %}selected{% endif %}>Accepted</option>
+                                <option value="rejected" {% if application.status == 'rejected' %}selected{% endif %}>Rejected</option>
+                            </select>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% else %}
+    <div class="bg-white rounded-lg shadow p-8 text-center">
+        <p class="text-gray-500 text-lg">No applications received yet for this job.</p>
+        <a href="{% url 'admin_dashboard' %}" class="mt-4 inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700">
+            Back to Dashboard
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

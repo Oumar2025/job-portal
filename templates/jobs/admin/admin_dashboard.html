@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto">
+    <h1 class="text-3xl font-bold text-gray-800 mb-8">Admin Dashboard</h1>
+    
+    <!-- Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-lg font-bold text-gray-700">Total Jobs Posted</h3>
+            <p class="text-3xl font-bold text-blue-600 mt-2">{{ jobs.count }}</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-lg font-bold text-gray-700">Total Applications</h3>
+            <p class="text-3xl font-bold text-green-600 mt-2">{{ total_applications }}</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-lg font-bold text-gray-700">Actions</h3>
+            <a href="{% url 'create_job' %}" 
+               class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                Post New Job
+            </a>
+        </div>
+    </div>
+    
+    <!-- Job List -->
+    <div class="bg-white rounded-lg shadow">
+        <div class="p-6 border-b">
+            <h2 class="text-2xl font-bold text-gray-800">Your Job Postings</h2>
+        </div>
+        
+        {% if jobs %}
+        <div class="divide-y">
+            {% for job in jobs %}
+            <div class="p-6 hover:bg-gray-50">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900">{{ job.title }}</h3>
+                        <p class="text-gray-600">{{ job.company }} • {{ job.location }}</p>
+                        <div class="mt-2">
+                            <span class="px-2 py-1 text-xs rounded {% if job.is_active %}bg-green-100 text-green-800{% else %}bg-red-100 text-red-800{% endif %}">
+                                {{ job.is_active|yesno:"Active,Inactive" }}
+                            </span>
+                            <span class="ml-2 text-gray-500 text-sm">
+                                Posted {{ job.created_at|date:"M d, Y" }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="flex space-x-2">
+                        <a href="{% url 'view_applications' job.id %}" 
+                           class="bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700">
+                            View Applications
+                        </a>
+                        <a href="{% url 'admin:jobs_job_change' job.id %}" 
+                           class="bg-gray-600 text-white px-4 py-2 rounded text-sm hover:bg-gray-700">
+                            Edit
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="p-8 text-center">
+            <p class="text-gray-500 text-lg">You haven't posted any jobs yet.</p>
+            <a href="{% url 'create_job' %}" class="mt-4 inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700">
+                Post Your First Job
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

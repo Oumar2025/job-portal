@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Job Listings{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <h1 class="text-3xl font-bold mb-4">Find Your Dream Job</h1>
+    <p class="text-gray-600">Browse through our latest job openings</p>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <div class="md:col-span-3">
+        <div class="grid grid-cols-1 gap-6">
+            {% for job in jobs %}
+            <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h2 class="text-xl font-bold text-blue-600">
+                            <a href="{% url 'job_detail' job.id %}">{{ job.title }}</a>
+                        </h2>
+                        <p class="text-gray-700">{{ job.company }} • {{ job.location }}</p>
+                        <p class="text-gray-600 mt-2">{{ job.description|truncatewords:30 }}</p>
+                        <div class="mt-4">
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                                {{ job.get_job_type_display }}
+                            </span>
+                            {% if job.salary %}
+                            <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">
+                                {{ job.salary }}
+                            </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-sm text-gray-500">{{ job.created_at|date:"M d, Y" }}</span>
+                        <br>
+                        <a href="{% url 'job_detail' job.id %}" 
+                           class="mt-2 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="text-center py-12">
+                <p class="text-gray-500 text-lg">No jobs available at the moment.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <div class="md:col-span-1">
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="font-bold text-lg mb-4">Job Categories</h3>
+            <ul class="space-y-2">
+                {% for category in categories %}
+                <li>
+                    <a href="#" class="text-blue-600 hover:text-blue-800">{{ category.name }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+            
+            <div class="mt-8">
+                <h3 class="font-bold text-lg mb-4">API Access</h3>
+                <p class="text-sm text-gray-600 mb-2">Access jobs via our REST API:</p>
+                <code class="text-xs bg-gray-100 p-2 block rounded">GET /api/jobs/</code>
+                <p class="text-xs text-gray-500 mt-2">Authentication required for details and application</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
