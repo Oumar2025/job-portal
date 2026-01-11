@@ -32,7 +32,7 @@ https://youtu.be/JwcmV4YBiPI?si=e9HJp18rtua1HN8b
 ![API Endpoint](screenshots/api_jobs.png)
 
 ### 📁 Project Structure
-![Project Structure](screenshots/📁 Project Structure.png)
+![📁 Project Structure](screenshots/Project_structure.png)
 
 
 ## Features
