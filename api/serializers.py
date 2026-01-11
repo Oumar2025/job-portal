@@ -28,3 +28,13 @@ class ApplicationSerializer(serializers.ModelSerializer):
         fields = ['id', 'job', 'job_title', 'company_name', 'cover_letter',
                  'resume', 'applied_at', 'status']
         read_only_fields = ['applied_at', 'status']
+
+# ADD THIS NEW SERIALIZER
+class ApplicationCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = JobApplication
+        fields = ['cover_letter', 'resume']
+        extra_kwargs = {
+            'cover_letter': {'required': True},
+            'resume': {'required': True}
+        }        

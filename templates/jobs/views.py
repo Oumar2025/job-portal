@@ -62,7 +62,7 @@ def admin_dashboard(request):
     jobs = Job.objects.filter(posted_by=request.user)
     total_applications = JobApplication.objects.filter(job__posted_by=request.user).count()
     
-    return render(request, 'jobs/admin_dashboard.html', {
+    return render(request, 'jobs/admin/admin_dashboard.html', {  # CHANGED
         'jobs': jobs,
         'total_applications': total_applications
     })
@@ -81,7 +81,7 @@ def create_job(request):
     else:
         form = JobForm()
     
-    return render(request, 'jobs/create_job.html', {'form': form})
+    return render(request, 'jobs/admin/create_job.html', {'form': form})  # CHANGED
 
 @login_required
 @user_passes_test(is_admin)
@@ -89,7 +89,7 @@ def view_applications(request, job_id):
     job = get_object_or_404(Job, id=job_id, posted_by=request.user)
     applications = job.applications.all()
     
-    return render(request, 'jobs/view_applications.html', {
+    return render(request, 'jobs/admin/view_applications.html', {  # CHANGED
         'job': job,
         'applications': applications
     })

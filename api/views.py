@@ -1,11 +1,9 @@
-
-# Create your views here.
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from jobs.models import Job, JobApplication
-from .serializers import JobSerializer, JobDetailSerializer, ApplicationSerializer
+from .serializers import JobSerializer, JobDetailSerializer, ApplicationSerializer, ApplicationCreateSerializer  # CHANGED
 
 class JobListAPI(generics.ListAPIView):
     """Public API to list all active jobs (No auth required)"""
@@ -40,7 +38,8 @@ class ApplyJobAPI(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
         
-        serializer = ApplicationSerializer(data=request.data)
+        # Use ApplicationCreateSerializer instead of ApplicationSerializer
+        serializer = ApplicationCreateSerializer(data=request.data)  # CHANGED
         if serializer.is_valid():
             application = serializer.save(
                 job=job,
