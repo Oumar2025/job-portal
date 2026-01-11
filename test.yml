@@ -1,4 +1,4 @@
-name: Django Tests
+name: Django CI
 
 on:
   push:
@@ -9,36 +9,35 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    
-    services:
-      sqlite:
-        image: sqlite:latest
-        
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.9, 3.10, 3.11]
+
     steps:
     - uses: actions/checkout@v3
     
-    - name: Set up Python
+    - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
       with:
-        python-version: '3.11'
+        python-version: ${{ matrix.python-version }}
     
-    - name: Install dependencies
+    - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install pytest pytest-django pytest-cov
     
-    - name: Run migrations
+    - name: Run Migrations
       run: |
         python manage.py makemigrations
         python manage.py migrate
     
-    - name: Run tests with pytest
+    - name: Run Tests
       run: |
-        pytest --cov=. --cov-report=xml
+        python manage.py test
     
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        file: ./coverage.xml
-        fail_ci_if_error: true
+    - name: Run Coverage
+      run: |
+        pip install coverage
+        coverage run --source='.' manage.py test
+        coverage report

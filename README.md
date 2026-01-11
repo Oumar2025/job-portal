@@ -19,8 +19,8 @@ https://youtu.be/JwcmV4YBiPI?si=e9HJp18rtua1HN8b
 
 ## Test Coverage
 
-[![Tests](https://github.com/YOUR_USERNAME/job-portal/actions/workflows/test.yml/badge.svg)](https://github.com/YOUR_USERNAME/job-portal/actions/workflows/test.yml)
-[![Coverage](https://codecov.io/gh/YOUR_USERNAME/job-portal/branch/main/graph/badge.svg)](https://codecov.io/gh/YOUR_USERNAME/job-portal)
+[![Tests](https://github.com/Oumar2025/job-portal/actions/workflows/test.yml/badge.svg)](https://github.com/Oumar2025/job-portal/actions/workflows/test.yml)
+[![Coverage](https://codecov.io/gh/Oumar2025/job-portal/branch/main/graph/badge.svg)](https://codecov.io/gh/Oumar2025/job-portal)
 
 
 ## Installation

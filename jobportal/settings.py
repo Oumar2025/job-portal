@@ -132,3 +132,25 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
 }
+
+
+
+
+# At the bottom of settings.py
+import os
+from decouple import config
+
+# For production
+if os.environ.get('DJANGO_ENV') == 'production':
+    DEBUG = False
+    ALLOWED_HOSTS = ['.yourdomain.com', 'localhost']
+    
+    # Database
+    import dj_database_url
+    DATABASES = {
+        'default': dj_database_url.config(default=config('DATABASE_URL'))
+    }
+    
+    # Static files
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
