@@ -1,10 +1,10 @@
-# Job Portal - Django Application
 
-A full-featured job portal with Django, Django REST Framework, and JWT Authentication.
+# 🚀 Job Portal - Django Application
 
-# Job Portal - Django Application
+A complete job portal with Django featuring JWT authentication, role-based access control (Admin/Member), and RESTful API.
 
-## 🎥 Screen Recording link video:
+
+# 🎥 Screen Recording link video:
 https://youtu.be/JwcmV4YBiPI?si=e9HJp18rtua1HN8b
 
 
@@ -53,10 +53,10 @@ https://youtu.be/JwcmV4YBiPI?si=e9HJp18rtua1HN8b
 [![Coverage](https://codecov.io/gh/Oumar2025/job-portal/branch/main/graph/badge.svg)](https://codecov.io/gh/Oumar2025/job-portal)
 
 
-## Installation
+# Installation
 
-1. Clone the repository:
-```bash
+## 1. Clone the repository:
+
 git remote add origin https://github.com/Oumar2025/job-portal.git
 cd job-portal
 
@@ -64,9 +64,9 @@ cd job-portal
 
 
 
-Here are the requirements fulfilled on My project:
+# Here are the requirements fulfilled on My project:
 
-## ✅ **FULFILLED REQUIREMENTS:**
+## ✅ FULFILLED REQUIREMENTS:
 1. **Original Idea** ✅ - Not a tutorial clone
 2. **Good UI/UX** ✅ - Uses Tailwind CSS, clear layout
 3. **System works normally** ✅ - No crashes in testing
@@ -82,45 +82,42 @@ Here are the requirements fulfilled on My project:
 13. **Data validation** ✅ - Django forms & serializers
 14. **Testing implemented** ✅ - 31 unit/integration tests
 
-## ❌ **NOT FULFILLED:**
+## ❌ NOT FULFILLED:
 1. **Prisma for database management** ❌ - We're using Django ORM (can't change without rewriting)
 
 
 
 
-# 🚀 Job Portal - Django Application
 
-A complete job portal with Django featuring JWT authentication, role-based access control (Admin/Member), and RESTful API.
+# 📋 Additional Features
 
-## 📋 Features
-
-### 👥 User Management
+## 👥 User Management
 - **Two User Roles**: Admin (post jobs, manage applications) and Member (apply for jobs)
 - **Secure Authentication**: JWT token-based authentication for API
 - **Registration & Login**: Custom forms with validation
 
-### 💼 Job Management
+## 💼 Job Management
 - **Public Job Listings**: View jobs without registration
 - **Job Applications**: Members can apply with resume and cover letter
 - **Admin Dashboard**: Post and manage job listings
 
-### 🔧 Technical Features
+## 🔧 Technical Features
 - **RESTful API**: Public and protected endpoints
 - **JWT Authentication**: Secure API access
 - **File Upload**: Resume upload functionality
 - **Responsive Design**: Tailwind CSS for modern UI
 - **Comprehensive Testing**: 31+ unit and integration tests
 
-## 🏗️ Architecture
+# 🏗️ Architecture
 
-```
+
 jobportal/
 ├── accounts/          # User authentication (login, register, profile)
 ├── jobs/             # Job listings and applications
 ├── api/              # REST API with JWT authentication
 ├── templates/        # HTML templates with Tailwind CSS
 └── jobportal/        # Project configuration
-```
+
 
 ## 🔐 Security & Authentication
 
@@ -141,37 +138,38 @@ jobportal/
 | POST | `/api/token/refresh/` | Refresh token | Yes (JWT) |
 | GET | `/api/my-applications/` | User's applications | Yes (JWT) |
 
-## 🚀 Quick Start
+# 🚀 Quick Start
 
-### Prerequisites
+## Prerequisites
 - Python 3.8+
 - pip
 
-### Installation
+# Installation
 
-1. **Clone and setup**
-   ```bash
+## 1. Clone and setup
+ 
    git remote add origin https://github.com/Oumar2025/job-portal.git
    cd job-portal
-   ```
+   
 
-2. **Install dependencies**
-   ```bash
+## 2. Install dependencies
+  
    pip install -r requirements.txt
-   ```
+   
 
-3. **Setup database**
-   ```bash
+## 3. Setup database
+  
    python manage.py migrate
    python manage.py createsuperuser
-   ```
+   
 
-4. **Run server**
-   ```bash
+## 4. Run server
+   
    python manage.py runserver
-   ```
 
-5. **Access at**: `http://127.0.0.1:8000/`
+
+## 5. Access at: 
+   `http://127.0.0.1:8000/`
 
 ## 🧪 Testing
 
