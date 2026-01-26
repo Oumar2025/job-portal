@@ -232,7 +232,7 @@ MIT License
 
 ## 👤 Author
 
-Your Name - GitHub: [@Oumar2025](https://github.com/Oumar2025)
+GitHub: [@Oumar2025](https://github.com/Oumar2025)
 
 ---
 
